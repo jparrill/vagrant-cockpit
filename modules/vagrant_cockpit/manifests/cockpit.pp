@@ -3,7 +3,7 @@ class vagrant_cockpit::cockpit(
 	$cockpit_serv_path = "$vagrant_cockpit::params::cockpit_serv_path",
 	$cockpit_serv_file = "$vagrant_cockpit::params::cockpit_serv_file",
 ) inherits vagrant_cockpit::params {
-	Exec { path => ['/bin'] }
+	Exec { path => ['/bin', '/usr/bin'] }
 
 	yumrepo {'virt7-testing':
 		ensure		=> present,
@@ -20,13 +20,13 @@ class vagrant_cockpit::cockpit(
 	}
 	->
 	exec { 'cockpit.socket':
-		command     => '/usr/bin/systemctl start cockpit.socket',
+		command     => 'systemctl start cockpit.socket',
 		refreshonly => true,
     }
 	->
 	exec {'add_cockpit_to_public_zone':
 		command	=> 'firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload',
-		unless	=> '/bin/grep -c cockpit /etc/firewalld/zones/public.xml'
+		unless	=> 'grep -c cockpit /etc/firewalld/zones/public.xml'
 	}
 	->
 	file {"$cockpit_serv_path":
@@ -39,7 +39,7 @@ class vagrant_cockpit::cockpit(
 	}
 	->
 	exec { 'systemd-daemon-reload':
-		command     => '/usr/bin/systemctl daemon-reload',
+		command     => 'systemctl daemon-reload',
 		refreshonly => true,
     }
     ->
