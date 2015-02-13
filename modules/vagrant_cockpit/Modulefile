@@ -1,0 +1,10 @@
+name    'jparrill-vagrant_cockpit'
+version '0.1.0'
+source 'http://cockpit-project.org/'
+author 'jparrill@redhat.com'
+license 'Apache License, Version 2.0'
+summary 'Vagrant cockpit installation for fast try'
+description 'Vagrant box with a Cockpit installation, try it!!'
+project_page 'http://cockpit-project.org/'
+
+
