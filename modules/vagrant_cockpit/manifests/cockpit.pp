@@ -5,16 +5,16 @@ class vagrant_cockpit::cockpit(
 ) inherits vagrant_cockpit::params {
 	Exec { path => ['/bin', '/usr/bin'] }
 
-	yumrepo {'virt7-testing':
-		ensure		=> present,
-		name		=> 'virt7-testing',
-		baseurl 	=> "$cockpit_repo_url",
-		descr 		=> "Cockpit testing repository",
-		enabled 	=> 1,
-		gpgcheck 	=> 0,
-		timeout		=> 200,
-	}
-	->
+	#yumrepo {'virt7-testing':
+	#	ensure		=> present,
+	#	name		=> 'virt7-testing',
+	#	baseurl 	=> "$cockpit_repo_url",
+	#	descr 		=> "Cockpit testing repository",
+	#	enabled 	=> 1,
+	#	gpgcheck 	=> 0,
+	#	timeout		=> 200,
+	#}
+	#->
 	package {'cockpit':
 		ensure => latest,
 	}
